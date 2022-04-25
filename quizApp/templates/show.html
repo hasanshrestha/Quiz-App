@@ -1,0 +1,40 @@
+{% extends 'adminHeader.html' %}
+
+{% block main %}
+<h3>Quiz App | Show Questions</h3>
+        <table border="1" class="table table-bordered table-striped table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Question</th>
+                    <th>Option 1</th>
+                    <th>Option 2</th>
+                    <th>Option 3</th>
+                    <th>Option 4</th>
+                    <th>Answer</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for value in quesList %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{value.question}}</td>
+                        <td>{{value.option1}}</td>
+                        <td>{{value.option2}}</td>
+                        <td>{{value.option3}}</td>
+                        <td>{{value.option4}}</td>
+                        <td>{{value.correctAns}}</td>
+                        <td>
+                            {% comment %} <a href="" class="btn btn-primary">Show</a> {% endcomment %}
+                            <a href="{% url 'editQuestion' value.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'deleteQuestion' value.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}
+
+

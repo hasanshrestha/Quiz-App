@@ -1,0 +1,137 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  </head>
+  <body>
+      <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img class="img-responsive" src="{% static "images/5.jpg" %}" alt="First slide" width="75px" height="50px">&nbsp&nbsp
+          <a class="navbar-brand" href="{% url 'index' %}">QUIZ APP</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'takeTest' %}" class="nav-link">Play Quiz</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'userProfile' %}" class="nav-link">Profile</a>
+              </li>
+              <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li> -->
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <b style="font-weight: normal;">Welcome {{username}}</b>
+              <a href="{% url 'logout' %}" class="btn btn-danger ml-3">Logout</a>
+            </form>
+          </div>
+      </nav>
+    </div>
+    <div class="container">
+
+    {% block main %}
+
+    {% endblock %}
+
+    </div>
+
+    </body>
+
+    <script>
+        $(document).ready(function(){
+        $("#b2").click(function(){
+            $(".rb").show();
+            $(".rb").attr("disabled",true);
+            $("#b2").attr("disabled",true);
+    
+        });
+        });
+    
+        function getanswers()
+        {
+            document.getElementById("UserAnswers").innerHTML = "";
+            var e = document.getElementsByTagName("input");
+            var x= 1;
+                for(i = 0 ; i<=e.length;i++)
+                {
+                    if(e[i].type=="radio")
+                    {
+                        if(e[i].checked)
+                        {
+                            document.getElementById("UserAnswers").innerHTML+="Q " + x + " The Answers You Are Selected Is : " + e[i].value + "<br>";
+                            x++;
+                        }
+                    }
+                }
+        }
+    
+        function getMarks()
+        {
+            debugger;
+            //selectedAns = $('input[name="btn1"]:checked').val();
+            //correctAns = $('#corans1').text()
+            //console.log(selectedAns, correctAns)
+            marks = 0;
+            for(i = 1 ; i<=10;i++)
+            {
+                selectedAns = $('input[name="btn'+i+'"]:checked').val();
+                correctAns = $('#corans'+ i).text()
+                if(selectedAns == correctAns)
+                {
+                    marks++;
+                }
+            }
+            console.log(marks)
+            document.getElementById("UserMarks").innerHTML = "You got "+ marks + " marks";
+    
+            //email send function
+            sendEmail(marks);
+        }
+    
+        function sendEmail(marks)
+        {
+            $.ajax({
+                url: '{% url 'sendemail' %}',
+                data: {
+                  'marks': marks
+                },
+                type: "GET",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    alert("Email Sent");
+                }
+              });
+        }
+    </script>

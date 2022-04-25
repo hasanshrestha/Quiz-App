@@ -1,0 +1,41 @@
+{% extends 'adminHeader.html' %}
+
+{% load static %}
+<html>
+  <head>
+    <title>Quiz App | Edit Questions</title>
+  </head>
+</html>
+
+{% block main %}
+<div class="content">
+    <h3>Quiz App | Edit Question</h3>
+    <br>
+    <form action="{% url 'updateQuestion' %}" method="POST" class="form-group">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ data.id }}">
+        <br>
+        <label for="question"><b>Question</b></label>
+        <input type="text" name="question" value="{{ data.question }}" class="form-control">
+        <br>
+        <label for="option1"><b>Option 1</b></label>
+        <input type="text" name="option1" value="{{ data.option1 }}" class="form-control">
+        <br>
+        <label for="option2"><b>Option 2</b></label>
+        <input type="text" name="option2" value="{{ data.option2 }}" class="form-control">
+        <br>
+        <label for="option3"><b>Option 3</b></label>
+        <input type="text" name="option3" value="{{ data.option3 }}" class="form-control">
+        <br>
+        <label for="option4"><b>Option 4</b></label>
+        <input type="text" name="option4" value="{{ data.option4 }}" class="form-control">
+        <br>
+        <label for="correctAns"><b>Answer</b></label>
+        <input type="text" name="correctAns" value="{{ data.correctAns }}" class="form-control">
+        <br>
+        <input type="submit" value="UPDATE" class="btn btn-primary">
+    <a href="{% url 'showQuestions' %}" class="btn btn-primary">Back</a><br>
+    </form>
+</div>
+
+{% endblock %}

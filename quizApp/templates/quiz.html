@@ -1,0 +1,52 @@
+{% extends "header.html" %}
+{% load static %}
+
+<html>
+  <head>
+    <title>Quiz App | Play Quiz</title>
+  </head>
+</html>
+
+{% block main %}
+
+    {% comment %} <h1 class="text-danger mt-3">Quiz App Using Python Django, Javascript and Ajax</h1> {% endcomment %}
+    <h5 class="text-danger mt-3" style="margin-top:10px;">Read the following questions carefully and select the answer.
+        Your obtained marks will be sent to your email address instantly after submitting the answer.</h5>
+    <hr>
+    <div>
+        {% for i in test %}
+        <table>
+            <tr>
+                <td class="text-primary">{{forloop.counter}} ) {{i.question}} ?</td>
+            </tr>
+            <tr>
+                <td><input type = "radio" class="rb" name ="btn{{forloop.counter}}" id="Option1" value="{{i.option1}}">{{i.option1}}</td>
+            </tr>
+            <tr>
+                <td><input type = "radio" class="rb" name ="btn{{forloop.counter}}" id="Option2" value="{{i.option2}}">{{i.option2}}</td>
+            </tr>
+            <tr>
+                <td><input type = "radio" class="rb" name ="btn{{forloop.counter}}" id="Option3" value="{{i.option3}}">{{i.option3}}</td>
+            </tr>
+            <tr>
+                <td><input type = "radio" class="rb" name ="btn{{forloop.counter}}" id="Option4" value="{{i.option4}}">{{i.option4}}</td>
+            </tr>
+
+            <tr>
+                <td><label id="corans" class= "rb" style="display:none ; color : green">Correct Answer: <b id="corans{{forloop.counter}}">{{i.correctAns}}</b></label></td>
+            </tr>
+
+        </table>
+<hr>
+
+        {% endfor %}
+        {% comment %} <button class="btn btn-success" id="b1" onclick="getanswers();getMarks();">Submit</button> {% endcomment %}
+        <input type="submit" class="btn btn-success" value="Submit" id="b2" onclick="getMarks()">
+        <br>
+        <b id="UserAnswers"></b>
+        <b id="UserMarks"></b>
+        <br>
+        </div>
+
+
+{%endblock%}

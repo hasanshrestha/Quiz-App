@@ -1,0 +1,28 @@
+{% extends 'adminHeader.html' %}
+
+{% load static %}
+
+{% block main %}
+
+{% comment %} Welcome {{username}} {% endcomment %}
+
+<div class="row">
+  <div class="card" style="width: 15rem;height: 10rem;">
+    <div class="card-body">
+      <h5 class="card-title"><b>Total Users</b></h5>
+      <span id="userCount" style="font-size: 60px;"></span>
+    </div>
+  </div>
+&nbsp &nbsp &nbsp
+  <div class="card" style="width: 15rem;height: 10rem;">
+    <div class="card-body">
+      <h5 class="card-title"><b>Total Questions</b></h5>
+      <span id="quesCount" style="font-size: 60px;"></span>    
+      {% comment %} <a href="#" class="btn btn-primary">Go somewhere</a> {% endcomment %}
+    </div>
+  </div>
+</div>
+    
+{% endblock %}
+
+

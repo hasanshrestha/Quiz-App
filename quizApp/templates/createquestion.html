@@ -1,0 +1,38 @@
+{% extends 'adminHeader.html' %}
+
+{% load static %}
+<html>
+  <head>
+    <title>Quiz App | Add Questions</title>
+  </head>
+</html>
+
+{% block main %}
+<h3>Quiz App | Add Questions</h3>
+<form action="{% url 'addQuestions' %}" method="POST">
+  <div class="form-group" style="width: 30rem;">
+  {% csrf_token %}
+  {{ form.as_p }}
+  </div>
+  {{msg}}
+  <br>
+  <input type="submit" value="SAVE" class="btn btn-primary">
+  <a href="{% url 'adminIndex' %}" class="btn btn-primary">Back</a>
+</form> 
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
